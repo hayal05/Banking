@@ -212,3 +212,7 @@ def transactions():
 if __name__ == "__main__":
     init_db()
     app.run(debug=True, host="0.0.0.0", port=5000)
+else:
+    # When run under a WSGI server (e.g. gunicorn app:app on Render),
+    # __main__ never executes, so make sure the DB is still set up.
+    init_db()
