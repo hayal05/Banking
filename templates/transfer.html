@@ -5,8 +5,8 @@
 <p class="balance-sub">Available: µ{{ "%.2f"|format(user["balance"]) }}</p>
 
 <form method="POST" class="form">
-  <label for="recipient">Send to (username)</label>
-  <input type="text" id="recipient" name="recipient" placeholder="e.g. alice" required autofocus />
+  <label for="recipient">Send to (phone number)</label>
+  <input type="tel" id="recipient" name="recipient" placeholder="e.g. +15550002222" required autofocus />
 
   <label for="amount">Amount (µ)</label>
   <input type="number" id="amount" name="amount" step="0.01" min="0.01" placeholder="0.00" required />
