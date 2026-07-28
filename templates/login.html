@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Log in - MyBank{% endblock %}
+{% block content %}
+<div class="centered-card">
+  <h1 class="logo">MyBank</h1>
+  <p class="subtitle">Log in to your account</p>
+
+  <form method="POST" class="form">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="demo" required autofocus />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="demo123" required />
+
+    <button type="submit" class="btn-primary">Log In</button>
+  </form>
+
+  <p class="hint">Demo credentials: <strong>demo</strong> / <strong>demo123</strong></p>
+</div>
+{% endblock %}

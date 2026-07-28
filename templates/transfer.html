@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Transfer - MyBank{% endblock %}
+{% block content %}
+<h1 class="page-title">Send Money</h1>
+<p class="balance-sub">Available: µ{{ "%.2f"|format(user["balance"]) }}</p>
+
+<form method="POST" class="form">
+  <label for="recipient">Send to (username)</label>
+  <input type="text" id="recipient" name="recipient" placeholder="e.g. alice" required autofocus />
+
+  <label for="amount">Amount (µ)</label>
+  <input type="number" id="amount" name="amount" step="0.01" min="0.01" placeholder="0.00" required />
+
+  <label for="note">Note (optional)</label>
+  <input type="text" id="note" name="note" placeholder="e.g. Rent, groceries" />
+
+  <button type="submit" class="btn-primary">Send</button>
+</form>
+{% endblock %}

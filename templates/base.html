@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>{% block title %}MyBank{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="app-shell">
+    {% if session.get('user_id') %}
+    <header class="topbar">
+      <span class="brand">MyBank</span>
+      <a href="{{ url_for('logout') }}" class="link-muted">Log out</a>
+    </header>
+    {% endif %}
+
+    <main class="content">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    {% if session.get('user_id') %}
+    <nav class="bottom-nav">
+      <a href="{{ url_for('dashboard') }}">Home</a>
+      <a href="{{ url_for('transfer') }}">Transfer</a>
+      <a href="{{ url_for('transactions') }}">History</a>
+    </nav>
+    {% endif %}
+  </div>
+</body>
+</html>

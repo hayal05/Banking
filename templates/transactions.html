@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}History - MyBank{% endblock %}
+{% block content %}
+<h1 class="page-title">Transaction History</h1>
+
+{% if transactions %}
+  <ul class="tx-list">
+    {% for tx in transactions %}
+    <li class="tx-item">
+      <div>
+        <p class="tx-note">
+          {{ tx["note"] }}
+          {% if tx["counterparty"] %}
+            <span class="tx-counterparty">{{ "to" if tx["type"] == "debit" else "from" }} {{ tx["counterparty"] }}</span>
+          {% endif %}
+        </p>
+        <p class="tx-date">{{ tx["created_at"] }}</p>
+      </div>
+      <span class="tx-amount tx-{{ tx['type'] }}">
+        {{ "-" if tx["type"] == "debit" else "+" }}µ{{ "%.2f"|format(tx["amount"]) }}
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="empty-state">No transactions yet.</p>
+{% endif %}
+{% endblock %}

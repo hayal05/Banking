@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - MyBank{% endblock %}
+{% block content %}
+<section class="balance-card">
+  <p class="balance-label">Available Balance</p>
+  <p class="balance-amount">µ{{ "%.2f"|format(user["balance"]) }}</p>
+  <p class="balance-sub">Account holder: {{ user["username"] }}</p>
+</section>
+
+<div class="quick-actions">
+  <a href="{{ url_for('transfer') }}" class="action-btn">Send Money</a>
+  <a href="{{ url_for('transactions') }}" class="action-btn action-btn-secondary">View History</a>
+</div>
+
+<section>
+  <h2 class="section-title">Recent Activity</h2>
+  {% if recent %}
+    <ul class="tx-list">
+      {% for tx in recent %}
+      <li class="tx-item">
+        <div>
+          <p class="tx-note">
+            {{ tx["note"] }}
+            {% if tx["counterparty"] %}
+              <span class="tx-counterparty">{{ "to" if tx["type"] == "debit" else "from" }} {{ tx["counterparty"] }}</span>
+            {% endif %}
+          </p>
+          <p class="tx-date">{{ tx["created_at"] }}</p>
+        </div>
+        <span class="tx-amount tx-{{ tx['type'] }}">
+          {{ "-" if tx["type"] == "debit" else "+" }}µ{{ "%.2f"|format(tx["amount"]) }}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No transactions yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
